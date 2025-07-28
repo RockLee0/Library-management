@@ -51,39 +51,36 @@ The server will start at http://localhost:5000
 
 POST: http://localhost:5000/api/books
 
-{
-  "title": "The Pragmatic Programmer",
-  "author": "Andrew Hunt",
-  "genre": "NON_FICTION",
-  "isbn": "9780135957059",
-  "description": "Programming best practices.",
-  "copies": 5
-}
 
 🛠 Update a Book
+
 PUT: http://localhost:5000/api/books/:id
-{
+
+ex: {
   "copies": 10
 }
+
 
 ❌ Delete a Book
 DELETE: http://localhost:5000/api/books/:id
 
 
+
 ✅ Zod Validation Example
-All fields are validated.
 
-Friendly error messages for:
+1.All fields are validated.
+2.Friendly error messages for:
+3.Missing fields
+4.Wrong data types
+5.Invalid enum values
+6.Duplicate ISBN
 
-Missing fields
 
-Wrong data types
 
-Invalid enum values
-
-Duplicate ISBN
 
 📚 Book Model Schema
+
+
 {
   title: string,
   author: string,
@@ -94,12 +91,15 @@ Duplicate ISBN
   available?: boolean (default: true)
 }
 
+
+
+
 🧠 Advanced Features
 
-Mongoose Middleware
-Logs a message after saving any book.
+1.Mongoose Middleware
+2.Logs a message after saving any book.
+3.All have pre and post hook where you will be notified in console before and after creating data
 
-All have pre and post hook where you will be notified in console before and after creating data
 
-Contribution
+### Contribution
 Feel free to fork the repo and open pull requests. Open issues if you face any problems.
