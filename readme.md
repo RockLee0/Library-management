@@ -1,6 +1,6 @@
 # 📚 Library Management System API
 
-A RESTful API built using **Node.js**, **Express.js**, **MongoDB (Mongoose)**, and **Zod** for managing a library's collection of books. It allows you to add, update, delete, and retrieve book information with proper validation and error handling.
+A Library Management System API built using **Node.js**, **Express.js**, **MongoDB (Mongoose)**, and **Zod** for managing a library's collection of books. It allows you to add, update, delete, and retrieve book information with proper validation and error handling.
 
 ### Server : https://library-management-virid-two.vercel.app/
 ### All Books : https://library-management-virid-two.vercel.app/api/books
