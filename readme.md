@@ -1,234 +1,105 @@
-# 📖 Library Management API
+# 📚 Library Management System API
 
-A backend REST API built using **Express**, **TypeScript**, and **MongoDB (Mongoose)** to manage a library system — allowing users to add, retrieve, update, delete, and borrow books, complete with proper validation, business logic, aggregation pipelines, and more.
+A RESTful API built using **Node.js**, **Express.js**, **MongoDB (Mongoose)**, and **Zod** for managing a library's collection of books. It allows you to add, update, delete, and retrieve book information with proper validation and error handling.
 
----
+### Server : https://library-management-virid-two.vercel.app/
+### All Books : https://library-management-virid-two.vercel.app/api/books
+### Borrow book summery : https://library-management-virid-two.vercel.app/api/borrow
 
-## 🎯 Objective
+## 🚀 Features
 
-Design and implement a Library Management System with:
+- 📘 Add a new book with validation (Zod, mongoose)
+- 📗 Update any book property (partial update supported)
+- 📕 Delete a book by ID
+- 📙 Get all books or a specific book by ID
+- ✅ Zod schema validation with detailed error messages
+- 🛠 Mongoose model with enums, timestamps, and uniqueness constraints
+- 🔁 Mongoose middleware for logging changes
+- 🧠 Custom instance and static methods on Book model
+- 🌐 JSON-based API ready for frontend integration
 
-- 📌 Schema validation (Zod + Mongoose)
-- 📌 Business rules (e.g., availability control when borrowing)
-- 📌 Aggregation pipelines (borrowed book summaries)
-- 📌 Mongoose static & instance methods
-- 📌 Middleware (`pre`, `post`)
-- 📌 Filtering, sorting, limiting support
 
----
+## 🛠 Tech Stack
 
-## 📦 Tech Stack
+- Node.js
+- Express.js
+- MongoDB & Mongoose
+- Zod for validation
+- TypeScript (Optional based on your setup)
 
-- **Backend:** Express.js
-- **Language:** TypeScript
-- **Database:** MongoDB + Mongoose
-- **Validation:** Zod
-- **Tooling:** Nodemon, dotenv, ts-node-dev
 
----
+## 📦 Setup Instructions
 
-## 📚 Book Model
+### 1. Clone the repository
+git clone https://github.com/RockLee0/library-management.git
+cd library-management
 
-| Field        | Type    | Validation / Notes                                  |
-|--------------|---------|-----------------------------------------------------|
-| title        | string  | Required                                             |
-| author       | string  | Required                                             |
-| genre        | string  | Required — Enum: `FICTION`, `NON_FICTION`, `SCIENCE`, etc. |
-| isbn         | string  | Required & Unique                                   |
-| description  | string  | Optional                                             |
-| copies       | number  | Required, must be ≥ 0                               |
-| available    | boolean | Defaults to `true`                                  |
-
----
-
-## 🔄 Borrow Model
-
-| Field   | Type     | Validation / Notes                       |
-|---------|----------|------------------------------------------|
-| book    | ObjectId | Required — references Book               |
-| quantity| number   | Required — must be a positive integer    |
-| dueDate | date     | Required                                  |
-
----
-
-## 📌 API Endpoints
-
-### ✅ Create Book
-
-`POST /api/books`
-
-```json
-{
-  "title": "The Theory of Everything",
-  "author": "Stephen Hawking",
-  "genre": "SCIENCE",
-  "isbn": "9780553380163",
-  "description": "An overview of cosmology and black holes.",
-  "copies": 5
-}
-📚 Get All Books
-GET /api/books?filter=SCIENCE&sortBy=createdAt&sort=desc&limit=5
-
-Supports:
-
-Genre filtering
-
-Sorting by any field
-
-Limit & pagination
-
-🔍 Get Book by ID
-GET /api/books/:bookId
-
-✏️ Update Book
-PUT /api/books/:bookId
-
-json
-Copy
-Edit
-{
-  "copies": 50
-}
-❌ Delete Book
-DELETE /api/books/:bookId
-
-📘 Borrow a Book
-POST /api/borrow
-
-Business logic:
-
-Rejects if not enough copies
-
-Deducts copies
-
-Sets available: false if copies reach 0 (via instance method)
-
-json
-Copy
-Edit
-{
-  "book": "64ab3f9e2a4b5c6d7e8f9012",
-  "quantity": 2,
-  "dueDate": "2025-07-18T00:00:00.000Z"
-}
-📊 Borrow Summary
-GET /api/borrow
-
-Returns:
-
-json
-Copy
-Edit
-[
-  {
-    "book": {
-      "title": "The Theory of Everything",
-      "isbn": "9780553380163"
-    },
-    "totalQuantity": 5
-  }
-]
-❗ Error Response Format
-json
-Copy
-Edit
-{
-  "message": "Validation failed",
-  "success": false,
-  "error": {
-    "name": "ValidationError",
-    "errors": {
-      "copies": {
-        "message": "Copies must be a positive number",
-        "kind": "min"
-      }
-    }
-  }
-}
-Handled errors:
-
-❌ Zod validation
-
-❌ Mongoose schema errors
-
-❌ Resource not found
-
-❌ Unexpected internal errors
-
-🧠 Mongoose Features Used
-✅ Static Method: Book.updateAvailability()
-
-✅ Instance Method: book.updateAvailability()
-
-✅ Pre & Post Middleware: Logging and state checks
-
-🧪 Sample Data
-json
-Copy
-Edit
-{
-  "title": "1984",
-  "author": "George Orwell",
-  "genre": "FICTION",
-  "isbn": "9780451524935",
-  "description": "Dystopian novel",
-  "copies": 3
-}
-📦 Setup Locally
-bash
-Copy
-Edit
-git clone https://github.com/your-username/library-management-api.git
-cd library-management-api
+### 2. Install dependencies
 npm install
-Create .env:
 
-ini
-Copy
-Edit
+### 3. Create a .env file
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/libraryDB
-Run server:
 
-bash
-Copy
-Edit
+### 4. Start the server
 npm run dev
-✅ Project Highlights
- Schema validation via Zod and Mongoose
+The server will start at http://localhost:5000
 
- Business logic for availability & borrowing
+📨 Sample API Requests
 
- Aggregation summary endpoint
+➕ Add a Book
 
- Filtering, sorting, limiting
+POST: http://localhost:5000/api/books
 
- Reusable error response structure
+{
+  "title": "The Pragmatic Programmer",
+  "author": "Andrew Hunt",
+  "genre": "NON_FICTION",
+  "isbn": "9780135957059",
+  "description": "Programming best practices.",
+  "copies": 5
+}
 
- Static & instance methods
+🛠 Update a Book
+PUT: http://localhost:5000/api/books/:id
+{
+  "copies": 10
+}
 
- Middleware (pre, post)
+❌ Delete a Book
+DELETE: http://localhost:5000/api/books/:id
 
-🏆 Bonus Section (10 Marks)
-✨ Clean code structure & readable types
 
-📁 Layered folder organization
+✅ Zod Validation Example
+All fields are validated.
 
-🧪 Tested with Postman
+Friendly error messages for:
 
-🎥 Video demo (optional)
+Missing fields
 
-📖 This professional README!
+Wrong data types
 
-📸 Demo / Video Link
-🔗 [Insert your demo video link here]
+Invalid enum values
 
-🌐 Deployment
-Live API: https://your-api-url.com
-Or test locally with Postman.
+Duplicate ISBN
 
-📩 Contact
-Author: Your Name
-GitHub: @your-username
-Email: you@example.com
+📚 Book Model Schema
+{
+  title: string,
+  author: string,
+  genre: "FICTION" | "NON_FICTION" | "SCIENCE" | "HISTORY" | "BIOGRAPHY" | "FANTASY",
+  isbn: string (unique),
+  description?: string,
+  copies: number,
+  available?: boolean (default: true)
+}
 
+🧠 Advanced Features
+
+Mongoose Middleware
+Logs a message after saving any book.
+
+All have pre and post hook where you will be notified in console before and after creating data
+
+Contribution
+Feel free to fork the repo and open pull requests. Open issues if you face any problems.

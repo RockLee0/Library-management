@@ -11,8 +11,14 @@ const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErr
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 //routes 
-app.use('/books', books_controller_1.bookRouter);
-app.use("/borrow", borrow_controller_1.borrowRouter);
+app.use('/api/books', books_controller_1.bookRouter);
+app.use("/api/borrow", borrow_controller_1.borrowRouter);
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Welcome to the Library-Management Backend. Follow the required routes to see all the requests (/books , /borrow)"
+    });
+});
 //error handlers
 app.use(notFound_1.notFoundHandler);
 app.use(globalErrorHandler_1.default);

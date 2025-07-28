@@ -1,4 +1,4 @@
-import express, { Application } from "express"
+import express, { Application, Request, Response} from "express"
 import { bookRouter } from "./app/controllers/books.controller";
 import { borrowRouter } from "./app/controllers/borrow.controller";
 import { notFoundHandler } from "./app/middleware/notFound";
@@ -8,8 +8,16 @@ const app: Application = express();
 app.use(express.json())
 
 //routes 
-app.use('/books', bookRouter)
-app.use("/borrow",borrowRouter)
+
+app.use('/api/books', bookRouter)
+app.use("/api/borrow",borrowRouter)
+
+app.get("/", (req, res)=>{
+    res.status(200).json({
+        success: true,
+        message: "Welcome to the Library-Management Backend. Follow the required routes to see all the requests (/books , /borrow)"
+    })
+})
 
 
 //error handlers
