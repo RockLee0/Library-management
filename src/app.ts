@@ -9,7 +9,7 @@ const app: Application = express();
 
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://your-frontend-domain.com"], // whitelist
+  origin: ["http://localhost:5173"], // whitelist
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
