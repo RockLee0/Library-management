@@ -8,7 +8,13 @@ const books_controller_1 = require("./app/controllers/books.controller");
 const borrow_controller_1 = require("./app/controllers/borrow.controller");
 const notFound_1 = require("./app/middleware/notFound");
 const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErrorHandler"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)({
+    origin: ["http://localhost:5173"], // whitelist
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express_1.default.json());
 //routes 
 app.use('/api/books', books_controller_1.bookRouter);
