@@ -11,7 +11,7 @@ const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErr
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: ["http://localhost:5173"], // whitelist
+    origin: ["https://libraryclient-opal.vercel.app"], // whitelist
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
