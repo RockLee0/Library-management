@@ -103,7 +103,7 @@ bookRouter.put("/:bookId",async(req:Request, res: Response, next: NextFunction)=
     console.log(theBook,body)
     if (!theBook) {
       const error = new Error("Book not found");
-      (error as any).status = 404;
+      (error as any).status = 404; 
       throw error;
     }
 

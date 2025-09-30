@@ -9,7 +9,7 @@ const app: Application = express();
 
 
 app.use(cors({
-  origin: ["http://localhost:5173"], // whitelist
+  origin: ["libraryclient-opal.vercel.app"], // whitelist
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
